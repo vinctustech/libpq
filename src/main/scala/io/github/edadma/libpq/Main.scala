@@ -1,6 +1,11 @@
 package io.github.edadma.libpq
 
 @main def run(): Unit =
-  val conn = connectdb("dbname=postgres user=postgres password=docker host=localhost")
+  println(s"version of libpq: $libVersion")
 
-  if conn.status == ConnStatus.BAD then
+//val conn = connectdb("dbname=postgres user=postgres password=docker host=localhost")
+//
+//if conn.status == ConnStatus.BAD then
+//  println(s"connection failed ${conn.errorMessage}")
+//  conn.finish()
+//

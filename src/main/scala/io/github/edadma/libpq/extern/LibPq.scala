@@ -31,3 +31,6 @@ object LibPq:
 
   /* Delete a PGresult */
   def PQclear(res: PGresultp): Unit = extern
+
+  /* Get the version of the libpq library in use */
+  def PQlibVersion: CInt = extern

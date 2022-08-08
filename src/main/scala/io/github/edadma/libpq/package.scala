@@ -66,3 +66,5 @@ package object libpq:
   end Result
 
   def connectdb(conninfo: String): Connection = Zone { implicit z => lib.PQconnectdb(toCString(conninfo)) }
+
+  def libVersion: Int = lib.PQlibVersion
