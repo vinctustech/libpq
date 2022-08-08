@@ -49,6 +49,8 @@ package object libpq:
     def exec(query: String): Result = Zone(implicit z => lib.PQexec(conn, toCString(query)))
 
     def errorMessage: String = fromCString(lib.PQerrorMessage(conn))
+
+    def serverVersion: Int = lib.PQserverVersion(conn)
   end Connection
 
   implicit class Result private[libpq] (val result: lib.PGresultp) extends AnyVal:
