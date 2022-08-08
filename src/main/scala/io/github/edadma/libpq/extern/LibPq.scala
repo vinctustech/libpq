@@ -21,6 +21,7 @@ object LibPq:
 
   /* Accessor functions for PGconn objects */
   def PQstatus(conn: PGconnp): ConnStatusType = extern
+  def PQerrorMessage(conn: PGconnp): CString = extern
 
   /* Accessor functions for PGresult objects */
   def PQresultStatus(res: PGresultp): ExecStatusType = extern

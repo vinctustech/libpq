@@ -31,8 +31,6 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 
 resolvers += Resolver.githubPackages("edadma")
 
-Compile / mainClass := Some(s"${organization.value}.${name.value.replace('-', '_')}.Main")
-
 licenses := Seq("ISC" -> url("https://opensource.org/licenses/ISC"))
 
 homepage := Some(url("https://github.com/edadma/" + name.value))

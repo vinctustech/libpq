@@ -7,7 +7,7 @@ package object libpq:
 
   import extern.{LibPq => lib}
 
-  class ConnStatus(val value: lib.ConnStatusType) extends AnyVal
+  implicit class ConnStatus(val value: lib.ConnStatusType) extends AnyVal
 
   object ConnStatus:
     final val OK = new ConnStatus(0)
@@ -25,7 +25,7 @@ package object libpq:
     final val CHECK_TARGET = new ConnStatus(12)
     final val CHECK_STANDBY = new ConnStatus(13)
 
-  class ExecStatus(val value: lib.ExecStatusType) extends AnyVal
+  implicit class ExecStatus(val value: lib.ExecStatusType) extends AnyVal
 
   object ExecStatus:
     final val EMPTY_QUERY = new ExecStatus(0)
@@ -60,7 +60,7 @@ package object libpq:
 
     def fname(field_num: Int): String = fromCString(lib.PQfname(result, field_num))
 
-    def getvalue(tup_num: CInt, field_num: CInt): CString = fromCString(lib.PQgetvalue(result, tup_num, field_num))
+    def getvalue(tup_num: Int, field_num: Int): String = fromCString(lib.PQgetvalue(result, tup_num, field_num))
 
     def clear(): Unit = lib.PQclear(result)
   end Result
