@@ -7,42 +7,42 @@ package object libpq:
 
   import extern.{LibPq => lib}
 
-  class ConnStatusType(val value: lib.ConnStatusType) extends AnyVal
+  class ConnStatus(val value: lib.ConnStatusType) extends AnyVal
 
-  object ConnStatusType:
-    final val CONNECTION_OK = new ConnStatusType(0)
-    final val CONNECTION_BAD = new ConnStatusType(1)
-    final val CONNECTION_STARTED = new ConnStatusType(2)
-    final val CONNECTION_MADE = new ConnStatusType(3)
-    final val CONNECTION_AWAITING_RESPONSE = new ConnStatusType(4)
-    final val CONNECTION_AUTH_OK = new ConnStatusType(5)
-    final val CONNECTION_SETENV = new ConnStatusType(6)
-    final val CONNECTION_SSL_STARTUP = new ConnStatusType(7)
-    final val CONNECTION_NEEDED = new ConnStatusType(8)
-    final val CONNECTION_CHECK_WRITABLE = new ConnStatusType(9)
-    final val CONNECTION_CONSUME = new ConnStatusType(10)
-    final val CONNECTION_GSS_STARTUP = new ConnStatusType(11)
-    final val CONNECTION_CHECK_TARGET = new ConnStatusType(12)
-    final val CONNECTION_CHECK_STANDBY = new ConnStatusType(13)
+  object ConnStatus:
+    final val OK = new ConnStatus(0)
+    final val BAD = new ConnStatus(1)
+    final val STARTED = new ConnStatus(2)
+    final val MADE = new ConnStatus(3)
+    final val AWAITING_RESPONSE = new ConnStatus(4)
+    final val AUTH_OK = new ConnStatus(5)
+    final val SETENV = new ConnStatus(6)
+    final val SSL_STARTUP = new ConnStatus(7)
+    final val NEEDED = new ConnStatus(8)
+    final val CHECK_WRITABLE = new ConnStatus(9)
+    final val CONSUME = new ConnStatus(10)
+    final val GSS_STARTUP = new ConnStatus(11)
+    final val CHECK_TARGET = new ConnStatus(12)
+    final val CHECK_STANDBY = new ConnStatus(13)
 
-  class ExecStatusType(val value: lib.ExecStatusType) extends AnyVal
+  class ExecStatus(val value: lib.ExecStatusType) extends AnyVal
 
-  object ExecStatusType:
-    final val PGRES_EMPTY_QUERY = new ExecStatusType(0)
-    final val PGRES_COMMAND_OK = new ExecStatusType(1)
-    final val PGRES_TUPLES_OK = new ExecStatusType(2)
-    final val PGRES_COPY_OUT = new ExecStatusType(3)
-    final val PGRES_COPY_IN = new ExecStatusType(4)
-    final val PGRES_BAD_RESPONSE = new ExecStatusType(5)
-    final val PGRES_NONFATAL_ERROR = new ExecStatusType(6)
-    final val PGRES_FATAL_ERROR = new ExecStatusType(7)
-    final val PGRES_COPY_BOTH = new ExecStatusType(8)
-    final val PGRES_SINGLE_TUPLE = new ExecStatusType(9)
-    final val PGRES_PIPELINE_SYNC = new ExecStatusType(10)
-    final val PGRES_PIPELINE_ABORTED = new ExecStatusType(11)
+  object ExecStatus:
+    final val EMPTY_QUERY = new ExecStatus(0)
+    final val COMMAND_OK = new ExecStatus(1)
+    final val TUPLES_OK = new ExecStatus(2)
+    final val COPY_OUT = new ExecStatus(3)
+    final val COPY_IN = new ExecStatus(4)
+    final val BAD_RESPONSE = new ExecStatus(5)
+    final val NONFATAL_ERROR = new ExecStatus(6)
+    final val FATAL_ERROR = new ExecStatus(7)
+    final val COPY_BOTH = new ExecStatus(8)
+    final val SINGLE_TUPLE = new ExecStatus(9)
+    final val PIPELINE_SYNC = new ExecStatus(10)
+    final val PIPELINE_ABORTED = new ExecStatus(11)
 
   implicit class Connection private[libpq] (val conn: lib.PGconnp) extends AnyVal:
-    def status: ConnStatusType = lib.PQstatus(conn)
+    def status: ConnStatus = lib.PQstatus(conn)
 
     def finish(): Unit = lib.PQfinish(conn)
 
@@ -50,7 +50,7 @@ package object libpq:
   end Connection
 
   implicit class Result private[libpq] (val result: lib.PGresultp) extends AnyVal:
-    def resultStatus: ExecStatusType = lib.PQresultStatus(result)
+    def status: ExecStatus = lib.PQresultStatus(result)
 
     def ntuples: Int = lib.PQntuples(result)
 
