@@ -1,4 +1,4 @@
-name := "-sn-template"
+name := "libpq"
 
 version := "0.1.0"
 
