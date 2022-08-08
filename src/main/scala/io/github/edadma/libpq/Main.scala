@@ -1,6 +1,6 @@
-package io.github.edadma.libpq
-
-@main def run(): Unit =
+//package io.github.edadma.libpq
+//
+//@main def run(): Unit =
 //  println(s"version of libpq: $libVersion")
 
 //  val conn = connectdb("dbname=postgres user=postgres password=docker host=localhost")
@@ -62,24 +62,49 @@ package io.github.edadma.libpq
 //  res.clear()
 //  conn.finish()
 
-  val conn = connectdb("dbname=postgres user=postgres password=docker host=localhost")
+//  val conn = connectdb("dbname=postgres user=postgres password=docker host=localhost")
+//
+//  if conn.status == ConnStatus.BAD then
+//    println(s"connection failed ${conn.errorMessage}")
+//    conn.finish()
+//    sys.exit(1)
+//
+//  val res = conn.exec("SELECT * FROM Cars LIMIT 5")
+//
+//  if res.status != ExecStatus.TUPLES_OK then
+//    println("no data")
+//    res.clear()
+//    conn.finish()
+//    sys.exit(1)
+//
+//  val rows = res.ntuples
+//
+//  for i <- 0 until rows do println(s"${res.getvalue(i, 0)} ${res.getvalue(i, 1)} ${res.getvalue(i, 2)}")
+//
+//  res.clear()
+//  conn.finish()
 
-  if conn.status == ConnStatus.BAD then
-    println(s"connection failed ${conn.errorMessage}")
-    conn.finish()
-    sys.exit(1)
-
-  val res = conn.exec("SELECT * FROM Cars LIMIT 5")
-
-  if res.status != ExecStatus.TUPLES_OK then
-    println("no data")
-    res.clear()
-    conn.finish()
-    sys.exit(1)
-
-  val rows = res.ntuples
-
-  for i <- 0 until rows do println(s"${res.getvalue(i, 0)} ${res.getvalue(i, 1)} ${res.getvalue(i, 2)}")
-
-  res.clear()
-  conn.finish()
+//  val conn = connectdb("dbname=postgres user=postgres password=docker host=localhost")
+//
+//  if conn.status == ConnStatus.BAD then
+//    println(s"connection failed ${conn.errorMessage}")
+//    conn.finish()
+//    sys.exit(1)
+//
+//  val res = conn.exec("SELECT * FROM Cars")
+//
+//  if res.status != ExecStatus.TUPLES_OK then
+//    println("no data")
+//    res.clear()
+//    conn.finish()
+//    sys.exit(1)
+//
+//  val cols = res.nfields
+//
+//  println(s"there are $cols columns")
+//  println("column names:")
+//
+//  for i <- 0 until cols do println(s"${res.fname(i)}")
+//
+//  res.clear()
+//  conn.finish()
