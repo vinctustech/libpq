@@ -41,24 +41,24 @@ package object libpq:
     final val PGRES_PIPELINE_SYNC = new ExecStatusType(10)
     final val PGRES_PIPELINE_ABORTED = new ExecStatusType(11)
 
-  implicit class Connection private[libpq] (val conn: lib.PGconnp) extends AnyVal {}
+  implicit class Connection private[libpq] (val conn: lib.PGconnp) extends AnyVal:
+    def finish: Unit = lib.PQfinish(conn)
 
-  def PQconnectdb(conninfo: CString): Ptr[PGconn] = extern
+    def exec(query: CString): lib.PGresultp = Zone(implicit z => lib.PQexec(conn, toCString(query)))
+  end Connection
 
-  def PQfinish(conn: Ptr[PGconn]): Unit = extern
+  implicit class Result private[libpq] (val result: lib.PGresultp) extends AnyVal:
+    def resultStatus: ExecStatusType = lib.PQresultStatus(result)
 
-  def PQexec(conn: Ptr[PGconn], query: CString): Ptr[PGresult] = extern
+    def ntuples: Int = lib.PQntuples(result)
 
-  /* Accessor functions for PGresult objects */
-  def PQresultStatus(res: Ptr[PGresult]): ExecStatusType = extern
+    def nfields: Int = lib.PQnfields(result)
 
-  def PQntuples(res: Ptr[PGresult]): CInt = extern
+    def fname(field_num: Int): String = fromCString(lib.PQfname(result, field_num))
 
-  def PQnfields(res: Ptr[PGresult]): CInt = extern
+    def getvalue(tup_num: CInt, field_num: CInt): CString = fromCString(lib.PQgetvalue(result, tup_num, field_num))
 
-  def PQfname(res: Ptr[PGresult], field_num: CInt): CString = extern
+    def clear(): Unit = lib.PQclear(result)
+  end Result
 
-  def PQgetvalue(res: Ptr[PGresult], tup_num: CInt, field_num: CInt): CString = extern
-
-  /* Delete a PGresult */
-  def PQclear(res: Ptr[PGresult]): Unit = extern
+  def connectdb(conninfo: String): Connection = Zone { implicit z => lib.PQconnectdb(toCString(conninfo)) }
