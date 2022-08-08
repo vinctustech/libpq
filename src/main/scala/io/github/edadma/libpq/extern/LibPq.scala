@@ -19,6 +19,9 @@ object LibPq:
   def PQfinish(conn: PGconnp): Unit = extern
   def PQexec(conn: PGconnp, query: CString): PGresultp = extern
 
+  /* Accessor functions for PGconn objects */
+  def PQstatus(conn: PGconnp): ConnStatusType = extern
+
   /* Accessor functions for PGresult objects */
   def PQresultStatus(res: PGresultp): ExecStatusType = extern
   def PQntuples(res: PGresultp): CInt = extern

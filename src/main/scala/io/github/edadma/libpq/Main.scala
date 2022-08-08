@@ -1,7 +1,4 @@
 package io.github.edadma.libpq
 
-object Main extends App {
-
-  println("Scala Native is awesome!")
-
-}
+@main def run(): Unit =
+  val conn = connectdb("dbname=postgres user=postgres password=docker host=localhost")

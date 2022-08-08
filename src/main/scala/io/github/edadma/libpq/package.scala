@@ -42,7 +42,9 @@ package object libpq:
     final val PGRES_PIPELINE_ABORTED = new ExecStatusType(11)
 
   implicit class Connection private[libpq] (val conn: lib.PGconnp) extends AnyVal:
-    def finish: Unit = lib.PQfinish(conn)
+    def status: ConnStatusType = lib.PQstatus(conn)
+
+    def finish(): Unit = lib.PQfinish(conn)
 
     def exec(query: CString): lib.PGresultp = Zone(implicit z => lib.PQexec(conn, toCString(query)))
   end Connection
