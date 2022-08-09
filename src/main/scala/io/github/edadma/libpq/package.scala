@@ -59,6 +59,7 @@ package object libpq:
     final val XIDOID = new Oid(28.toUInt)
     final val CIDOID = new Oid(29.toUInt)
     final val OIDVECTOROID = new Oid(30.toUInt)
+    final val JSONOID = new Oid(114.toUInt)
     final val POINTOID = new Oid(600.toUInt)
     final val LSEGOID = new Oid(601.toUInt)
     final val PATHOID = new Oid(602.toUInt)
