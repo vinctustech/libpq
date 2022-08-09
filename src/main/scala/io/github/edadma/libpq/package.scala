@@ -41,6 +41,52 @@ package object libpq:
     final val PIPELINE_SYNC = new ExecStatus(10)
     final val PIPELINE_ABORTED = new ExecStatus(11)
 
+  implicit class Oid(val value: lib.Oid) extends AnyVal
+
+  object Oid:
+    final val BOOLOID = new Oid(16.toUInt)
+    final val BYTEAOID = new Oid(17.toUInt)
+    final val CHAROID = new Oid(18.toUInt)
+    final val NAMEOID = new Oid(19.toUInt)
+    final val INT8OID = new Oid(20.toUInt)
+    final val INT2OID = new Oid(21.toUInt)
+    final val INT2VECTOROID = new Oid(22.toUInt)
+    final val INT4OID = new Oid(23.toUInt)
+    final val REGPROCOID = new Oid(24.toUInt)
+    final val TEXTOID = new Oid(25.toUInt)
+    final val OIDOID = new Oid(26.toUInt)
+    final val TIDOID = new Oid(27.toUInt)
+    final val XIDOID = new Oid(28.toUInt)
+    final val CIDOID = new Oid(29.toUInt)
+    final val OIDVECTOROID = new Oid(30.toUInt)
+    final val POINTOID = new Oid(600.toUInt)
+    final val LSEGOID = new Oid(601.toUInt)
+    final val PATHOID = new Oid(602.toUInt)
+    final val BOXOID = new Oid(603.toUInt)
+    final val POLYGONOID = new Oid(604.toUInt)
+    final val LINEOID = new Oid(628.toUInt)
+    final val FLOAT4OID = new Oid(700.toUInt)
+    final val FLOAT8OID = new Oid(701.toUInt)
+    final val ABSTIMEOID = new Oid(702.toUInt)
+    final val RELTIMEOID = new Oid(703.toUInt)
+    final val TINTERVALOID = new Oid(704.toUInt)
+    final val UNKNOWNOID = new Oid(705.toUInt)
+    final val CIRCLEOID = new Oid(718.toUInt)
+    final val CASHOID = new Oid(790.toUInt)
+    final val INETOID = new Oid(869.toUInt)
+    final val CIDROID = new Oid(650.toUInt)
+    final val BPCHAROID = new Oid(1042.toUInt)
+    final val VARCHAROID = new Oid(1043.toUInt)
+    final val DATEOID = new Oid(1082.toUInt)
+    final val TIMEOID = new Oid(1083.toUInt)
+    final val TIMESTAMPOID = new Oid(1114.toUInt)
+    final val TIMESTAMPTZOID = new Oid(1184.toUInt)
+    final val INTERVALOID = new Oid(1186.toUInt)
+    final val TIMETZOID = new Oid(1266.toUInt)
+    final val ZPBITOID = new Oid(1560.toUInt)
+    final val VARBITOID = new Oid(1562.toUInt)
+    final val NUMERICOID = new Oid(1700.toUInt)
+
   implicit class Connection private[libpq] (val conn: lib.PGconnp) extends AnyVal:
     def status: ConnStatus = lib.PQstatus(conn)
 
@@ -65,6 +111,10 @@ package object libpq:
     def getvalue(tup_num: Int, field_num: Int): String = fromCString(lib.PQgetvalue(result, tup_num, field_num))
 
     def clear(): Unit = lib.PQclear(result)
+
+    def ftype(field_num: CInt): Oid = lib.PQftype(resule, field_num)
+
+    def fsize(field_num: CInt): Int = lib.PQfsize(result, field_num)
   end Result
 
   def connectdb(conninfo: String): Connection = Zone { implicit z => lib.PQconnectdb(toCString(conninfo)) }

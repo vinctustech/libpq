@@ -11,6 +11,7 @@ object LibPq:
   type PGresult = CStruct0
   type PGresultp = Ptr[PGresult]
   type PGcancel = CStruct0
+  type Oid = CUnsignedInt
 
   type ExecStatusType = CInt
   type ConnStatusType = CInt
@@ -30,6 +31,8 @@ object LibPq:
   def PQnfields(res: PGresultp): CInt = extern
   def PQfname(res: PGresultp, field_num: CInt): CString = extern
   def PQgetvalue(res: PGresultp, tup_num: CInt, field_num: CInt): CString = extern
+  def PQftype(res: PGresultp, field_num: CInt): Oid = extern
+  def PQfsize(res: PGresultp, field_num: CInt): CInt = extern
 
   /* Delete a PGresult */
   def PQclear(res: PGresultp): Unit = extern
