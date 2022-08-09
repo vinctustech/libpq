@@ -112,7 +112,7 @@ package object libpq:
 
     def clear(): Unit = lib.PQclear(result)
 
-    def ftype(field_num: CInt): Oid = lib.PQftype(resule, field_num)
+    def ftype(field_num: CInt): Oid = lib.PQftype(result, field_num)
 
     def fsize(field_num: CInt): Int = lib.PQfsize(result, field_num)
   end Result
