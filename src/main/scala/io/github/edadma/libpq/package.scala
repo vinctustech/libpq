@@ -88,7 +88,7 @@ package object libpq:
     final val VARBITOID = new Oid(1562.toUInt)
     final val NUMERICOID = new Oid(1700.toUInt)
 
-  implicit class Connection private[libpq] (val conn: lib.PGconnp) extends AnyVal:
+  implicit class Connection(val conn: lib.PGconnp) extends AnyVal:
     def status: ConnStatus = lib.PQstatus(conn)
 
     def finish(): Unit = lib.PQfinish(conn)
@@ -100,7 +100,7 @@ package object libpq:
     def serverVersion: Int = lib.PQserverVersion(conn)
   end Connection
 
-  implicit class Result private[libpq] (val result: lib.PGresultp) extends AnyVal:
+  implicit class Result(val result: lib.PGresultp) extends AnyVal:
     def status: ExecStatus = lib.PQresultStatus(result)
 
     def ntuples: Int = lib.PQntuples(result)
