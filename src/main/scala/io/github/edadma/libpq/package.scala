@@ -104,9 +104,11 @@ package object libpq:
 
     def getResult: Result = lib.PQgetResult(conn)
 
-    def consumeInput: Boolean = lib.PQconsumeInput(conn) != 0 // true if error
+    def consumeInput: Boolean = lib.PQconsumeInput(conn) != 0 // false if error
 
     def isBusy: Boolean = lib.PQisBusy(conn) != 0 // true if getResult would block
+
+    def socket: Int = lib.PQsocket(conn)
   end Connection
 
   implicit class Result(val result: lib.PGresultp) extends AnyVal:

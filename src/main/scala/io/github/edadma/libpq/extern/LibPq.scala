@@ -44,3 +44,4 @@ object LibPq:
   def PQgetResult(conn: PGconnp): PGresultp = extern
   def PQconsumeInput(conn: PGconnp): CInt = extern
   def PQisBusy(conn: PGconnp): CInt = extern
+  def PQsocket(conn: PGconnp): CInt = extern
