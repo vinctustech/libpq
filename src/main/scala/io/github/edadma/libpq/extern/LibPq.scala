@@ -39,3 +39,8 @@ object LibPq:
 
   /* Get the version of the libpq library in use */
   def PQlibVersion: CInt = extern
+
+  def PQsendQuery(conn: PGconnp, query: CString): CInt = extern
+  def PQgetResult(conn: PGconnp): PGresultp = extern
+  def PQconsumeInput(conn: PGconnp): CInt = extern
+  def PQisBusy(conn: PGconnp): CInt = extern

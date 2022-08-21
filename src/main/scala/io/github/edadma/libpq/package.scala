@@ -98,6 +98,14 @@ package object libpq:
     def errorMessage: String = fromCString(lib.PQerrorMessage(conn))
 
     def serverVersion: Int = lib.PQserverVersion(conn)
+
+    def sendQuery(query: String): Int = Zone(implicit z => lib.PQsendQuery(conn, toCString(query)))
+
+    def getResult: Result = lib.PQgetResult(conn)
+
+    def consumeInput: Boolean = lib.PQconsumeInput(conn) > 0 // true if error
+
+    def isBusy: Boolean = lib.PQisBusy(conn) > 0 // true if getResult would block
   end Connection
 
   implicit class Result(val result: lib.PGresultp) extends AnyVal:
