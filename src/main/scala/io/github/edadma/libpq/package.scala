@@ -110,6 +110,8 @@ package object libpq:
   end Connection
 
   implicit class Result(val result: lib.PGresultp) extends AnyVal:
+    def isNull: Boolean = result == null
+
     def status: ExecStatus = lib.PQresultStatus(result)
 
     def ntuples: Int = lib.PQntuples(result)
