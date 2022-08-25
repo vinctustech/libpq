@@ -31,6 +31,8 @@ object LibPq:
   def PQnfields(res: PGresultp): CInt = extern
   def PQfname(res: PGresultp, field_num: CInt): CString = extern
   def PQgetvalue(res: PGresultp, tup_num: CInt, field_num: CInt): CString = extern
+  def PQgetisnull(res: PGresultp, tup_num: CInt, field_num: CInt): CInt = extern
+  def PQgetlength(res: PGresultp, tup_num: CInt, field_num: CInt): CInt = extern
   def PQftype(res: PGresultp, field_num: CInt): Oid = extern
   def PQfsize(res: PGresultp, field_num: CInt): CInt = extern
 

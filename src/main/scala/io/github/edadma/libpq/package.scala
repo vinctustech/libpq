@@ -116,21 +116,25 @@ package object libpq:
 
     def status: ExecStatus = lib.PQresultStatus(result)
 
-    def ntuples: Int = lib.PQntuples(result)
+    def nTuples: Int = lib.PQntuples(result)
 
-    def nfields: Int = lib.PQnfields(result)
+    def nFields: Int = lib.PQnfields(result)
 
-    def fname(field_num: Int): String = fromCString(lib.PQfname(result, field_num))
+    def fName(field_num: Int): String = fromCString(lib.PQfname(result, field_num))
 
-    def getvalue(tup_num: Int, field_num: Int): String = fromCString(lib.PQgetvalue(result, tup_num, field_num))
+    def getValue(tup_num: Int, field_num: Int): String = fromCString(lib.PQgetvalue(result, tup_num, field_num))
+
+    def getIsNull(tup_num: Int, field_num: Int): Boolean = lib.PQgetisnull(result, tup_num, field_num) > 0
+
+    def getLength(tup_num: Int, field_num: Int): Int = lib.PQgetlength(result, tup_num, field_num)
 
     def clear(): Unit = lib.PQclear(result)
 
-    def ftype(field_num: CInt): Oid = lib.PQftype(result, field_num)
+    def fType(field_num: CInt): Oid = lib.PQftype(result, field_num)
 
-    def fsize(field_num: CInt): Int = lib.PQfsize(result, field_num)
+    def fSize(field_num: CInt): Int = lib.PQfsize(result, field_num)
   end Result
 
-  def connectdb(conninfo: String): Connection = Zone { implicit z => lib.PQconnectdb(toCString(conninfo)) }
+  def connectDB(conninfo: String): Connection = Zone { implicit z => lib.PQconnectdb(toCString(conninfo)) }
 
   def libVersion: Int = lib.PQlibVersion
