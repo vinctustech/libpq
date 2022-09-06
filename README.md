@@ -10,7 +10,7 @@ The following example program performes a database query to find out Bob's last 
 package io.github.edadma.libpq
 
 @main def run(): Unit =
-  val conn = connectdb("dbname=<database name> user=<user name> password=<user password> host=<hostname>")
+  val conn = connectDB("dbname=<database name> user=<user name> password=<user password> host=<hostname>")
 
   if conn.status == ConnStatus.BAD then
     println(s"connection failed ${conn.errorMessage}")
@@ -25,9 +25,9 @@ package io.github.edadma.libpq
     conn.finish()
     sys.exit(1)
 
-  val rows = res.ntuples
+  val rows = res.nTuples
 
-  for i <- 0 until rows do println(s"${res.getvalue(i, 0)}")
+  for i <- 0 until rows do println(s"${res.getValue(i, 0)}")
 
   res.clear()
   conn.finish()
