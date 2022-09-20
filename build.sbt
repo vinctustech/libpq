@@ -1,8 +1,8 @@
 name := "libpq"
 
-version := "0.0.5"
+version := "0.0.6"
 
-scalaVersion := "3.1.3"
+scalaVersion := "3.2.0"
 
 enablePlugins(ScalaNativePlugin)
 
